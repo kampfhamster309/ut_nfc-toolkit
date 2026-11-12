@@ -52,3 +52,7 @@ ssh phablet@<phone> '~/nfc-toolkit-install/install.sh --backend-only'  # backend
 - **Restarting the backend over SSH:** never `pkill -f nfctoolkit` — the pattern matches your own ssh command and kills the session. Use `systemctl --user restart nfc-toolkit` or `fuser -k 8767/tcp`.
 - **Headless QML:** `qmlscene` offscreen loads the app ("LOADED OK") but **segfaults on paint** (Lomiri `Button` in the software renderer) — a headless-only artifact; the app runs on-device. For a screenshot, drop local `Button.qml`/`Icon.qml` stubs in the qml dir.
 - **nfcd API:** interfaces `Tag`/`TagType2`/`IsoDep`/`NDEF`/`Host` on `org.sailfishos.nfc.daemon` `/nfc0`; `Daemon.RequestMode` (reader `0x02`, CE `0x08`) is scoped to the caller's connection, so the long-lived service holds it. Emulation registers a `LocalHostService`; nfcd calls back `Process(host,CLA..Le)`.
+
+## License
+
+[MIT](LICENSE) © 2026 Felix Harenbrock. Free to use, modify and redistribute, including commercially, as long as the copyright notice and license text are kept.
