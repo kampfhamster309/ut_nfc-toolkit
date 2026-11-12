@@ -66,7 +66,7 @@ Page {
                 width: parent.width; visible: !root.tag && !root.emulating; spacing: units.gu(1)
                 topPadding: units.gu(6)
                 Icon { name: "nfc"; width: units.gu(8); height: units.gu(8); color: "#3a4150"; anchors.horizontalCenter: parent.horizontalCenter }
-                Label { anchors.horizontalCenter: parent.horizontalCenter; text: root.powered ? "Hold a tag to the upper-middle back" : "Waiting for NFC…"; color: "#8a8f99" }
+                Label { anchors.horizontalCenter: parent.horizontalCenter; text: root.powered ? "Hold a tag to the lower half of the back" : "Waiting for NFC…"; color: "#8a8f99" }
             }
 
             // tag card

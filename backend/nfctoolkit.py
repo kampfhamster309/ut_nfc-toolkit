@@ -267,6 +267,7 @@ class Nfc:
         self.ce_ndef = None
         self.cur_tag = None          # object path of current tag
         self.cur_info = None         # last read info dict
+        self.absent = 0
         self.clone_source = None     # remembered {pages, name} for copy->paste cloning
         self.busy = False
         self._load()
@@ -348,28 +349,39 @@ class Nfc:
         except dbus.DBusException:
             return True
         if tags:
+            self.absent = 0
             if tags[0] != self.cur_tag:
+                # nfcd rotates the tag object path on each re-poll even while the
+                # physical tag stays put; only re-read/announce when the UID changes.
+                prev_uid = self.cur_info.get("uid") if self.cur_info else None
                 self.cur_tag = tags[0]
-                self.read_current()
+                info = self.read_current(silent=True)
+                if info is not None and info.get("uid") != prev_uid:
+                    self.hub.broadcast({"t": "tag", "tag": info})
         else:
-            if self.cur_tag is not None:
+            self.absent = getattr(self, "absent", 0) + 1
+            if self.cur_tag is not None and self.absent >= 5:   # ~2 s of real absence
                 self.cur_tag = None
                 self.cur_info = None
                 self.hub.broadcast({"t": "tag_gone"})
         return True
 
     # ---- reading
-    def read_current(self):
+    def read_current(self, silent=False):
         if not self.cur_tag:
             return None
         self.busy = True
         try:
             info = self._read_tag(self.cur_tag)
             self.cur_info = info
-            self.hub.broadcast({"t": "tag", "tag": info})
+            if not silent:
+                self.hub.broadcast({"t": "tag", "tag": info})
             return info
         except dbus.DBusException as e:
-            self.hub.broadcast({"t": "read_error", "msg": e.get_dbus_message()})
+            # the tag path often vanishes mid-read as nfcd re-polls; that's not a real error
+            msg = e.get_dbus_message()
+            if not silent and "does not exist" not in msg and "UnknownObject" not in e.get_dbus_name():
+                self.hub.broadcast({"t": "read_error", "msg": msg})
             return None
         finally:
             self.busy = False

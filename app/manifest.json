@@ -9,7 +9,7 @@
             "desktop": "nfctoolkit.desktop"
         }
     },
-    "version": "0.1.1",
+    "version": "0.1.3",
     "maintainer": "Operator <operator@localhost>",
     "framework": "ubuntu-touch-24.04-1.x"
 }

@@ -23,7 +23,7 @@ ssh phablet@<phone> '~/nfc-toolkit-install/install.sh --backend-only'  # backend
 
 ## Features
 
-- **Read:** hold a tag to the upper-middle back. Shows technology, protocol, type, UID, SAK, interfaces, NDEF records, and (for Type 2) a full page dump.
+- **Read:** hold a tag to the lower half of the back. Shows technology, protocol, type, UID, SAK, interfaces, NDEF records, and (for Type 2) a full page dump.
 - **Save (.nfc):** writes a Flipper-compatible file to `~/Documents/NFC/`. NTAG/Ultralight dumps are fully interoperable with a Flipper Zero.
 - **Clone:** read an NTAG/Ultralight, tap **Copy**, hold a blank tag of the same model, tap **Clone**. Writes pages 4..end (UID/lock pages are left alone). Also clone straight from a saved `.nfc` in the **Library**.
 - **Write NDEF:** write a URL or text record to a Type 2 tag.

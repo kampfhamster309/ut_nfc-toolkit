@@ -40,6 +40,7 @@ MainView {
 
     function flashMsg(s) { flash = s; flashTimer.restart() }
     Timer { id: flashTimer; interval: 4000; onTriggered: root.flash = "" }
+    Timer { id: goneTimer; interval: 1500; onTriggered: root.tag = null }
 
     function handle(m) {
         switch (m.t) {
@@ -48,8 +49,8 @@ MainView {
             hasAdapter = m.adapter; powered = m.powered
             emulating = m.emulating; btError = m.error || ""
             break
-        case "tag": tag = m.tag; break
-        case "tag_gone": tag = null; break
+        case "tag": tag = m.tag; goneTimer.stop(); break
+        case "tag_gone": goneTimer.restart(); break
         case "read_error": flashMsg("Read error: " + m.msg); break
         case "saved": flashMsg("Saved " + m.name); break
         case "copied": hasCopy = true; copyName = m.name; flashMsg("Copied " + m.pages + " pages from " + m.name); break

@@ -37,8 +37,8 @@ Page {
             Column {
                 anchors { left: parent.left; right: cloneBtn.left; verticalCenter: parent.verticalCenter; leftMargin: units.gu(2); rightMargin: units.gu(1) }
                 spacing: units.gu(0.3)
-                Label { text: model.name; elide: Text.ElideRight; width: parent.width; color: "#fff" }
-                Label { text: (model.device_type || "") + (model.uid ? "  ·  " + model.uid : "") + (model.pages ? "  ·  " + model.pages + " pages" : "")
+                Label { text: model.name || ""; elide: Text.ElideRight; width: parent.width; color: "#fff" }
+                Label { text: (model.device_type || "–") + (model.uid ? "  ·  " + model.uid : "") + (model.pages ? "  ·  " + model.pages + " pages" : "")
                         textSize: Label.Small; color: "#8a8f99"; elide: Text.ElideRight; width: parent.width }
             }
             Button {
