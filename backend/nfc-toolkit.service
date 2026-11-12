@@ -1,0 +1,12 @@
+# systemd USER unit (phablet): NFC Toolkit backend for the NFC Toolkit app.
+[Unit]
+Description=NFC Toolkit backend (nfcd bridge for the NFC Toolkit app)
+
+[Service]
+WorkingDirectory=%h/.local/share/nfc-toolkit
+ExecStart=/usr/bin/python3 -I %h/.local/share/nfc-toolkit/nfctoolkit.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

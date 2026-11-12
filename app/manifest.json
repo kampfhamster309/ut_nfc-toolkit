@@ -1,0 +1,15 @@
+{
+    "name": "nfctoolkit.local",
+    "description": "Read, clone, write and emulate NFC tags; Flipper .nfc compatible",
+    "architecture": "all",
+    "title": "NFC Toolkit",
+    "hooks": {
+        "nfctoolkit": {
+            "apparmor": "nfctoolkit.apparmor",
+            "desktop": "nfctoolkit.desktop"
+        }
+    },
+    "version": "0.1.0",
+    "maintainer": "Operator <operator@localhost>",
+    "framework": "ubuntu-touch-24.04-1.x"
+}

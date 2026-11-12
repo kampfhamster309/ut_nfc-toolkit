@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=NFC Toolkit
+Comment=Read, clone, write and emulate NFC tags
+Exec=qmlscene %u qml/Main.qml
+Icon=assets/logo.svg
+Terminal=false
+Type=Application
+X-Lomiri-Touch=true
+X-Lomiri-Default-Department-ID=accessories
